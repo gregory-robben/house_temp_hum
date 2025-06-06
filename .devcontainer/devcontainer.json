@@ -5,9 +5,6 @@
     "context": ".."
   },
   "features": {
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.11"
-    },
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
@@ -31,7 +28,7 @@
       }
     }
   },
-  "postCreateCommand": "pip install -r requirements-dev.txt",
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
   "remoteUser": "vscode",
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
