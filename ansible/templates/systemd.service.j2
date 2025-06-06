@@ -1,0 +1,16 @@
+[Unit]
+Description=Temperature Sensor Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=exec
+User={{ service_user }}
+WorkingDirectory={{ app_dir }}
+ExecStart=/usr/bin/docker-compose up --no-build
+ExecStop=/usr/bin/docker-compose down
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

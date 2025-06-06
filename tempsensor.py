@@ -7,11 +7,8 @@ import config
 
 # set DATA pin
 DHT = 4
-
-# get hostname
 hostname = str(socket.gethostname())
 
-# device_info = {hostname:{location,bucket,bucket_key,access_key}}
 device_info = {
     "raspberrypi-0w1": {
         "location": "office",

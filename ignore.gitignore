@@ -192,4 +192,18 @@ pyrightconfig.json
 .history
 .ionide
 
+# Application specific
+config.py
+mosquitto_data/
+mosquitto_logs/
+logs/
+
+# Ansible secrets
+ansible/secrets.yml
+ansible/host_vars/
+ansible/group_vars/
+
+# Docker overrides
+docker-compose.override.yml
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python

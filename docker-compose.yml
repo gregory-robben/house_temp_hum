@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  temperature-sensor:
+    build: .
+    container_name: temperature-sensor
+    restart: unless-stopped
+    
+    # Enable GPIO access (requires privileged mode on Pi)
+    privileged: true
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    
+    environment:
+      # MQTT Configuration
+      MQTT_SERVER: ${MQTT_SERVER}
+      MQTT_PORT: ${MQTT_PORT:-1883}
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+      MQTT_USE_TLS: ${MQTT_USE_TLS:-true}
+      
+      # Sensor Configuration
+      SENSOR_PIN: ${SENSOR_PIN:-4}
+      SENSOR_READ_INTERVAL: ${SENSOR_READ_INTERVAL:-300}
+      SENSOR_METRIC_UNITS: ${SENSOR_METRIC_UNITS:-true}
+      SENSOR_MAX_RETRIES: ${SENSOR_MAX_RETRIES:-3}
+    
+    volumes:
+      - ./logs:/app/logs
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Optional: MQTT broker for local testing
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    restart: unless-stopped
+    profiles:
+      - testing
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+
+volumes:
+  mosquitto_data:
+  mosquitto_logs:

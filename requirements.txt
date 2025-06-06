@@ -1,0 +1,9 @@
+# Production dependencies
+paho-mqtt>=1.6.1
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+structlog>=23.0.0
+
+# GPIO library (will be installed on Pi)
+# Adafruit-DHT>=1.4.0  # Uncomment for Pi deployment
